@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: myapp
+    image: openjdk:15-jdk-alpine
+    restart: always
+    ports:
+      - 80:8080
+    environment:
+      DOCKER_DB_HOST: localhost:3306
+    networks:
+      mysql_network:
+        aliases:
+          - mysql-user
+
+networks:
+  mysql_network:
+    name: mysql_net
+    driver: bridge
